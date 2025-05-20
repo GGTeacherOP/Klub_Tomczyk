@@ -11,7 +11,7 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: #333; /* Domyślny ciemny kolor tekstu */
+    color: #333;
 }
 
 header {
@@ -31,8 +31,7 @@ header h1 {
     margin: 0;
     font-size: 2.5em;
     letter-spacing: 2px;
-    color: #fff; /* Biały tekst z cieniem dla czytelności */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #000; /* Czarny tekst */
 }
 
 nav {
@@ -40,12 +39,11 @@ nav {
 }
 
 nav a {
-    color: #fff; /* Biały tekst z cieniem */
+    color: #000; /* Czarny tekst */
     text-decoration: none;
     margin: 0 15px;
     font-size: 1.1em;
     transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 nav a:hover {
@@ -53,7 +51,7 @@ nav a:hover {
 }
 
 main {
-    background-color: #ffffff; /* Czysto białe tło dla kontrastu */
+    background-color: #ffffff;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -65,7 +63,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #333; /* Ciemny tekst w main */
+    color: #333;
 }
 
 .banner {
@@ -80,13 +78,13 @@ main {
 }
 
 h2 {
-    color: #222; /* Ciemniejszy szary dla nagłówków */
+    color: #222;
     font-size: 2em;
     margin-bottom: 20px;
 }
 
 p, label {
-    color: #333; /* Ciemny tekst dla akapitów i etykiet */
+    color: #333;
 }
 
 form {
@@ -106,7 +104,7 @@ input, select {
     border-radius: 5px;
     font-size: 1em;
     transition: border-color 0.3s ease;
-    color: #333; /* Ciemny tekst w polach formularza */
+    color: #333;
 }
 
 input:focus, select:focus {
@@ -116,7 +114,7 @@ input:focus, select:focus {
 
 input[type="submit"], button {
     background-color: #4CAF50;
-    color: #fff; /* Biały tekst na zielonym tle */
+    color: #fff;
     padding: 12px 20px;
     border: none;
     border-radius: 5px;
@@ -148,16 +146,16 @@ th, td {
     padding: 12px;
     border: 1px solid #ddd;
     text-align: center;
-    color: #333; /* Ciemny tekst w tabelach */
+    color: #333;
 }
 
 th {
     background-color: #4CAF50;
-    color: #fff; /* Biały tekst na zielonym tle */
+    color: #fff;
 }
 
 td {
-    background-color: #f0f0f0; /* Nieco ciemniejsze tło komórek */
+    background-color: #f0f0f0;
 }
 
 .room {
@@ -191,7 +189,7 @@ footer {
 }
 
 footer p {
-    color: #fff; /* Biały tekst z cieniem */
+    color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     margin: 0;
 }
