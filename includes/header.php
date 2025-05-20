@@ -1,6 +1,3 @@
-<?php
-require __DIR__ . '/config.php';
-?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -17,9 +14,7 @@ require __DIR__ . '/config.php';
             <a href="contact.php">Kontakt</a>
             <a href="booking.php">Rezerwacja</a>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="panel_klienta.php" class="my-bookings">Moje rezerwacje</a>
-                <span class="welcome-msg">Witaj, <?= explode('@', $_SESSION['email'])[0] ?>!</span>
-                <a href="logout.php" class="logout-btn">Wyloguj</a>
+                <a href="logout.php" class="logout-btn">Wyloguj (<?= $_SESSION['email'] ?>)</a>
             <?php else: ?>
                 <a href="login.php" class="login-btn">Zaloguj</a>
             <?php endif; ?>

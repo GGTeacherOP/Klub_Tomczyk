@@ -1,6 +1,4 @@
-<?php
-require __DIR__ . '/includes/header.php';
-?>
+<?php include 'includes/header.php'; ?>
 
 <div class="container">
     <div class="form-box">
@@ -30,6 +28,4 @@ require __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<?php
-require __DIR__ . '/includes/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>

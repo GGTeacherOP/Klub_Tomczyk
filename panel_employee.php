@@ -1,12 +1,14 @@
 <?php
-require __DIR__ . '/includes/header.php';
-require __DIR__ . '/includes/config.php';
+include 'includes/header.php';
+require 'includes/config.php';
 
+// Sprawdź uprawnienia
 if ($_SESSION['role'] !== 'employee') {
     header("Location: login.php");
     exit();
 }
 
+// Obsługa formularza aktualizacji
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sala = $_POST['sala'];
     $drinki = $_POST['drinki'];
@@ -15,14 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$drinki, $sala]);
 }
 
+// Pobierz aktualny stan
 $inventory = $pdo->query("SELECT * FROM inventory")->fetchAll();
 ?>
 
 <div class="container">
+    <h1>Panel pracownika</h1>
+    
     <div class="form-box">
-        <h2>Panel pracownika</h2>
-        
-        <form method="post">
+        <h2>Aktualizacja stanu drinków</h2>
+        <form method="POST">
             <div class="form-group">
                 <label>Sala:</label>
                 <select name="sala" required>
@@ -31,22 +35,15 @@ $inventory = $pdo->query("SELECT * FROM inventory")->fetchAll();
                     <?php endforeach; ?>
                 </select>
             </div>
+            
             <div class="form-group">
                 <label>Ilość drinków:</label>
-                <input type="number" name="drinki" required>
+                <input type="number" name="drinki" min="0" required>
             </div>
-            <button type="submit">Aktualizuj</button>
+            
+            <button type="submit">Zapisz</button>
         </form>
-
-        <h3>Aktualny stan</h3>
-        <?php foreach ($inventory as $item): ?>
-            <div class="inventory-item">
-                <p><?= $item['sala'] ?>: <?= $item['drinki'] ?> drinków</p>
-            </div>
-        <?php endforeach; ?>
     </div>
 </div>
 
-<?php
-require __DIR__ . '/includes/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>
