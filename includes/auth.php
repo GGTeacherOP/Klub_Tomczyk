@@ -1,9 +1,6 @@
 <?php
 session_start();
-
-function is_logged_in() {
-    return isset($_SESSION['user_id']);
-}
+include 'config.php';
 
 function login($email, $password) {
     global $conn;
@@ -11,15 +8,22 @@ function login($email, $password) {
     $result = $conn->query($sql);
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
-        return true;
+        if ($user['status'] == 'confirmed') {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['status'] = $user['status'];
+            return true;
+        }
     }
     return false;
 }
 
 function logout() {
     session_destroy();
+}
+
+function is_logged_in() {
+    return isset($_SESSION['user_id']);
 }
 ?>

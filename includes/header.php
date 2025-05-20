@@ -29,7 +29,9 @@ include 'auth.php';
                 <span>Zalogowany jako: <?php echo $_SESSION['email']; ?></span>
             <?php else: ?>
                 <a href="login.php">Zaloguj</a>
+                <a href="register.php">Rejestracja</a>
             <?php endif; ?>
         </nav>
     </header>
     <main>
+        <div class="banner"></div>

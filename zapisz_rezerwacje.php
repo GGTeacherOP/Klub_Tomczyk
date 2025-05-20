@@ -10,7 +10,6 @@ $data = $_POST['data'];
 $dodatki = isset($_POST['dodatki']) ? json_encode($_POST['dodatki']) : '[]';
 $user_id = $_SESSION['user_id'];
 
-// Sprawdź dostępność sali
 $sql_check = "SELECT * FROM bookings WHERE sala = '$sala' AND data = '$data' AND status IN ('pending', 'confirmed')";
 $result_check = $conn->query($sql_check);
 if ($result_check->num_rows > 0) {
