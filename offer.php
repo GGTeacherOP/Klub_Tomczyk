@@ -1,27 +1,19 @@
 <?php include 'includes/header.php'; ?>
-
-<div class="container">
-    <h1>Oferta</h1>
-    
-    <div class="offer-section">
-        <div class="card">
-            <h2>Sala X</h2>
-            <ul>
-                <li>Pojemność: 50 osób</li>
-                <li>Cena: 2000 zł/8h</li>
-                <li>Bar premium</li>
-            </ul>
-        </div>
-        
-        <div class="card">
-            <h2>Sala Y</h2>
-            <ul>
-                <li>Pojemność: 100 osób</li>
-                <li>Cena: 3500 zł/8h</li>
-                <li>VIP Lounge</li>
-            </ul>
-        </div>
-    </div>
+<h2>Oferta</h2>
+<div class="room">
+    <h3>Sala X</h3>
+    <img src="https://via.placeholder.com/300x200" alt="Sala X">
+    <p>Pojemność do 50 osób</p>
 </div>
-
+<div class="room">
+    <h3>Sala Y</h3>
+    <img src="https://via.placeholder.com/300x200" alt="Sala Y">
+    <p>Pojemność do 100 osób</p>
+</div>
+<h3>Dodatki</h3>
+<ul>
+    <li>DJ</li>
+    <li>Fotobudka</li>
+    <li>Ochrona</li>
+</ul>
 <?php include 'includes/footer.php'; ?>

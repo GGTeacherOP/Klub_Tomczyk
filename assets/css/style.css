@@ -1,209 +1,41 @@
-/* style.css */
-:root {
-    --primary: #2c3e50;    /* Główny kolor (ciemny granat) */
-    --secondary: #e67e22;  /* Akcent (pomarańcz) */
-    --light: #f9f9f9;      /* Tło strony */
-    --success: #4CAF50;    /* Kolor sukcesu */
-    --error: #f44336;      /* Kolor błędu */
-    --warning: #FF9800;    /* Kolor ostrzeżenia */
-}
-
-/* Reset i podstawowe style */
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
 }
-
-body {
-    background: var(--light);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Nagłówek */
 header {
-    background: var(--primary);
-    padding: 1rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-nav a {
+    background-color: #333;
     color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: 0.3s;
-}
-
-nav a:hover:not(.logout-btn, .login-btn) {
-    background: var(--secondary);
-}
-
-/* Specjalne przyciski w headerze */
-.my-bookings {
-    margin-left: auto;
-    color: var(--secondary) !important;
-    font-weight: bold;
-}
-
-.welcome-msg {
-    color: var(--secondary);
-    margin-right: 1rem;
-}
-
-.logout-btn {
-    background: var(--error);
-    padding: 0.5rem 1rem;
-}
-
-.logout-btn:hover {
-    background: #d32f2f;
-}
-
-.login-btn {
-    background: var(--secondary);
-    margin-left: auto;
-}
-
-/* Główna zawartość */
-.container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    flex: 1;
-}
-
-.form-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-/* Karty rezerwacji */
-.reservation-card {
-    background: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-.reservation-info {
-    flex: 1;
-}
-
-.reservation-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-}
-
-.reservation-status {
-    font-weight: bold;
-}
-
-.status-confirmed { color: var(--success); }
-.status-pending { color: var(--warning); }
-.status-cancelled { color: var(--error); }
-
-.reservation-extras {
-    margin-top: 1rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--secondary);
-}
-
-.reservation-extras ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-}
-
-.reservation-extras li {
-    margin: 0.3rem 0;
-}
-
-/* Przyciski */
-.btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.cancel-btn {
-    background: var(--error);
-    color: white;
-}
-
-.cancel-btn:hover {
-    background: #d32f2f;
-}
-
-/* Komunikaty */
-.success-msg {
-    background: var(--success);
-    color: white;
-    padding: 1rem;
-    border-radius: 5px;
-    margin: 1rem 0;
+    padding: 10px 0;
     text-align: center;
 }
-
-.info-msg {
-    background: #e3f2fd;
-    color: #1976d2;
-    padding: 1rem;
-    border-radius: 5px;
-    text-align: center;
+.hero {
+    background-image: url('https://via.placeholder.com/1200x400');
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 20px;
 }
-
-/* Stopka */
-footer {
-    background: var(--primary);
+.room {
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+button, input[type="submit"] {
+    background-color: #4CAF50;
     color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: auto;
-}
-
-/* Responsywność */
-@media (max-width: 768px) {
-    nav {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .my-bookings {
-        margin-left: 0;
-        order: 1;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .reservation-card {
-        flex-direction: column;
-    }
-    
-    .reservation-actions {
-        width: 100%;
-        text-align: center;
-        margin-top: 1rem;
-    }
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }

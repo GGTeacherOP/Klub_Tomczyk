@@ -1,24 +1,12 @@
 <?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bania_u_cygana";
 
-$host = 'localhost';
-$db   = 'bania_u_cygana';
-$user = 'root'; 
-$pass = '';
-$charset = 'utf8mb4';
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    die("Błąd połączenia: " . $e->getMessage());
+if ($conn->connect_error) {
+    die("Połączenie nieudane: " . $conn->connect_error);
 }
 ?>

@@ -1,31 +1,26 @@
-<?php include 'includes/header.php'; ?>
-
-<div class="container">
-    <div class="form-box">
-        <h2>Logowanie</h2>
-        <?php if (isset($_GET['error'])): ?>
-            <div class="error">Błędne dane logowania!</div>
-        <?php endif; ?>
-        <form action="includes/auth.php" method="post">
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label>Hasło:</label>
-                <input type="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label>Rola:</label>
-                <select name="role" required>
-                    <option value="client">Klient</option>
-                    <option value="employee">Pracownik</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-            <button type="submit">Zaloguj</button>
-        </form>
-    </div>
-</div>
-
+<?php
+include 'includes/header.php';
+if (is_logged_in()) {
+    header('Location: index.php');
+    exit;
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    if (login($email, $password)) {
+        header('Location: index.php');
+        exit;
+    } else {
+        echo "Nieprawidłowy email lub hasło.";
+    }
+}
+?>
+<h2>Logowanie</h2>
+<form method="post">
+    <label for="email">Email:</label>
+    <input type="email" name="email" required><br>
+    <label for="password">Hasło:</label>
+    <input type="password" name="password" required><br>
+    <input type="submit" value="Zaloguj">
+</form>
 <?php include 'includes/footer.php'; ?>

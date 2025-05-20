@@ -1,25 +1,10 @@
 <?php include 'includes/header.php'; ?>
-
-<div class="hero">
-    <h1>Witaj w Bani u Cygana!</h1>
-    <p>Organizujesz imprezę? Zarezerwuj salę już dziś!</p>
-</div>
-
-<div class="container">
-    <div class="highlights">
-        <div class="card">
-            <h2>Sale imprezowe</h2>
-            <p>Dwie klimatyczne przestrzenie dostosowane do Twoich potrzeb.</p>
-        </div>
-        <div class="card">
-            <h2>Profesjonalny bar</h2>
-            <p>Setki drinków i alkoholi z całego świata.</p>
-        </div>
-        <div class="card">
-            <h2>Dodatki</h2>
-            <p>DJ, fotobudka, ochrona – wszystko w pakiecie.</p>
-        </div>
-    </div>
-</div>
-
+<div class="hero"></div>
+<h2>Witamy w Bania u Cygana</h2>
+<p>Oferujemy wynajem sal na imprezy urodzinowe z możliwością wyboru dodatków takich jak DJ, fotobudka, ochrona i wiele innych.</p>
+<?php if (is_logged_in()): ?>
+    <p>Witaj, <?php echo $_SESSION['email']; ?>! Możesz teraz dokonać rezerwacji lub przejść do swojego panelu.</p>
+<?php else: ?>
+    <p>Zaloguj się, aby dokonać rezerwacji.</p>
+<?php endif; ?>
 <?php include 'includes/footer.php'; ?>

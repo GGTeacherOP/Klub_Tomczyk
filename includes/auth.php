@@ -1,25 +1,25 @@
 <?php
-require 'config.php';
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password']; // Hasło z formularza
-    $role = $_POST['role'];
+function is_logged_in() {
+    return isset($_SESSION['user_id']);
+}
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND role = ?");
-    $stmt->execute([$email, $role]);
-    $user = $stmt->fetch();
-
-    // Porównaj hasła bez hashowania
-    if ($user && $password === $user['password']) {
+function login($email, $password) {
+    global $conn;
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($sql);
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
-        header("Location: /bania-u-cygana/panel_" . $user['role'] . ".php");
-        exit();
-    } else {
-        header("Location: login.php?error=1");
-        exit();
+        return true;
     }
+    return false;
+}
+
+function logout() {
+    session_destroy();
 }
 ?>

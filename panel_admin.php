@@ -1,55 +1,58 @@
 <?php
 include 'includes/header.php';
-require 'includes/config.php';
-
-if ($_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
+if (!is_logged_in() || $_SESSION['role'] != 'admin') {
+    header('Location: login.php');
+    exit;
 }
-
-// Pobierz dane
-$users = $pdo->query("SELECT * FROM users")->fetchAll();
-$inventory = $pdo->query("SELECT * FROM inventory")->fetchAll();
+$sql = "SELECT b.*, u.email FROM bookings b JOIN users u ON b.user_id = u.id";
+$result = $conn->query($sql);
 ?>
+<h2>Wszystkie rezerwacje</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Użytkownik</th>
+        <th>Sala</th>
+        <th>Data</th>
+        <th>Dodatki</th>
+        <th>Status</th>
+    </tr>
+    <?php while($row = $result->fetch_assoc()): ?>
+    <tr>
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['email']; ?></td>
+        <td><?php echo $row['sala']; ?></td>
+        <td><?php echo $row['data']; ?></td>
+        <td><?php echo implode(', ', json_decode($row['dodatki'], true)); ?></td>
+        <td><?php echo $row['status']; ?></td>
+    </tr>
+    <?php endwhile; ?>
+</table>
 
-<div class="container">
-    <h1>Panel administratora</h1>
-    
-    <div class="admin-section">
-        <h2>Użytkownicy</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Rola</th>
-            </tr>
-            <?php foreach ($users as $user): ?>
-            <tr>
-                <td><?= $user['id'] ?></td>
-                <td><?= $user['email'] ?></td>
-                <td><?= $user['role'] ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
-
-    <div class="admin-section">
-        <h2>Stan magazynu</h2>
-        <table>
-            <tr>
-                <th>Sala</th>
-                <th>Drinki</th>
-                <th>Aktualizacja</th>
-            </tr>
-            <?php foreach ($inventory as $item): ?>
-            <tr>
-                <td><?= $item['sala'] ?></td>
-                <td><?= $item['drinki'] ?></td>
-                <td><?= $item['ostatnia_aktualizacja'] ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
-</div>
-
+<h2>Zarządzanie użytkownikami</h2>
+<?php
+$sql_users = "SELECT * FROM users WHERE role != 'admin'";
+$result_users = $conn->query($sql_users);
+?>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Rola</th>
+        <th>Akcje</th>
+    </tr>
+    <?php while($row = $result_users->fetch_assoc()): ?>
+    <tr>
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['email']; ?></td>
+        <td><?php echo $row['role']; ?></td>
+        <td>
+            <form action="delete_user.php" method="post">
+                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                <input type="submit" value="<?php echo $row['role'] == 'employee' ? 'Zwolnij' : 'Usuń konto'; ?>">
+            </form>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+</table>
 <?php include 'includes/footer.php'; ?>
