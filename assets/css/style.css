@@ -1,0 +1,278 @@
+/* assets/css/style.css */
+:root {
+    --primary: #2c3e50;       /* Główny kolor - ciemny granat */
+    --secondary: #e67e22;     /* Akcent - pomarańczowy */
+    --light: #f9f9f9;         /* Tło strony */
+    --success: #4CAF50;       /* Kolor sukcesu */
+    --error: #f44336;         /* Kolor błędu */
+    --warning: #FF9800;       /* Kolor ostrzeżenia */
+    --info: #2196F3;          /* Kolor informacyjny */
+}
+
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: var(--light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nagłówek */
+header {
+    background: var(--primary);
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+nav a:hover:not(.logout-btn, .login-btn) {
+    background: var(--secondary);
+}
+
+.my-bookings {
+    margin-left: auto;
+    color: var(--secondary) !important;
+    font-weight: bold;
+}
+
+.welcome-msg {
+    color: var(--secondary);
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: var(--error);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background: #d32f2f;
+}
+
+.login-btn {
+    background: var(--secondary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-left: auto;
+}
+
+/* Główna zawartość */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d') center/cover;
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Formularze */
+.form-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.checkboxes label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.btn {
+    background: var(--secondary);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #d35400;
+}
+
+/* Karty rezerwacji */
+.reservation-card {
+    background: white;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-info {
+    flex: 1;
+}
+
+.reservation-date {
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.reservation-status {
+    font-weight: bold;
+}
+
+.status-pending { color: var(--warning); }
+.status-confirmed { color: var(--success); }
+.status-cancelled { color: var(--error); }
+
+.reservation-extras {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--secondary);
+}
+
+.reservation-extras ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reservation-extras li {
+    margin: 0.3rem 0;
+}
+
+/* Komunikaty */
+.success-msg {
+    background: var(--success);
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.error-msg {
+    background: var(--error);
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.info-msg {
+    background: var(--info);
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+/* Panel pracownika */
+.inventory-item {
+    background: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Stopka */
+footer {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .my-bookings,
+    .login-btn {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .hero {
+        padding: 4rem 1rem;
+    }
+
+    .reservation-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .reservation-actions {
+        width: 100%;
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
