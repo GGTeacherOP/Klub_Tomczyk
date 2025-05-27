@@ -1,30 +1,39 @@
 <?php
-include 'includes/config.php';
-include 'includes/auth.php';
+session_start();
+require_once 'includes/config.php';
+require_once 'includes/auth.php';
 
-if (!is_logged_in() || $_SESSION['role'] != 'admin') {
+if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = (int)($_POST['id'] ?? 0);
 
-    $sql = "SELECT * FROM pending_users WHERE id = '$id'";
-    $result = $conn->query($sql);
-    if ($result->num_rows == 1) {
+    $stmt = $conn->prepare("SELECT email, password FROM pending_users WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         $email = $user['email'];
         $password = $user['password'];
+        $stmt->close();
 
-        $sql_insert = "INSERT INTO users (email, password, role, status) VALUES ('$email', '$password', 'client', 'confirmed')";
-        if ($conn->query($sql_insert) === TRUE) {
-            $sql_delete = "DELETE FROM pending_users WHERE id = '$id'";
-            $conn->query($sql_delete);
-            echo "Konto zostało zatwierdzone.";
+        $stmt = $conn->prepare("INSERT INTO users (email, password, status) VALUES (?, ?, 'confirmed')");
+        $stmt->bind_param('ss', $email, $password);
+        if ($stmt->execute()) {
+            $stmt = $conn->prepare("DELETE FROM pending_users WHERE id = ?");
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $_SESSION['success_message'] = 'Użytkownik został zatwierdzony.';
         } else {
-            echo "Błąd: " . $conn->error;
+            $_SESSION['error_message'] = 'Błąd podczas zatwierdzania użytkownika.';
         }
+        $stmt->close();
+    } else {
+        $_SESSION['error_message'] = 'Użytkownik nie znaleziony.';
     }
 }
 

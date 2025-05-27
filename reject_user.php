@@ -1,21 +1,24 @@
 <?php
-include 'includes/config.php';
-include 'includes/auth.php';
+session_start();
+require_once 'includes/config.php';
+require_once 'includes/auth.php';
 
-if (!is_logged_in() || $_SESSION['role'] != 'admin') {
+if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = (int)($_POST['id'] ?? 0);
 
-    $sql = "DELETE FROM pending_users WHERE id = '$id'";
-    if ($conn->query($sql) === TRUE) {
-        echo "Rejestracja została odrzucona.";
+    $stmt = $conn->prepare("DELETE FROM pending_users WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    if ($stmt->execute()) {
+        $_SESSION['success_message'] = 'Użytkownik został odrzucony.';
     } else {
-        echo "Błąd: " . $conn->error;
+        $_SESSION['error_message'] = 'Błąd podczas odrzucania użytkownika.';
     }
+    $stmt->close();
 }
 
 header('Location: panel_admin.php');

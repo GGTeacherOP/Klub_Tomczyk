@@ -3,23 +3,23 @@ session_start();
 require_once 'includes/config.php';
 require_once 'includes/auth.php';
 
-if (!isLoggedIn() || $_SESSION['role'] !== 'client') {
+if (!isLoggedIn() || $_SESSION['role'] !== 'employee') {
     header('Location: login.php');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int)($_POST['id'] ?? 0);
-    $user_id = (int)$_SESSION['user_id'];
 
-    $stmt = $conn->prepare("SELECT sala FROM bookings WHERE id = ? AND user_id = ? AND status = 'pending' AND data > DATE_ADD(CURDATE(), INTERVAL 2 DAY)");
-    $stmt->bind_param('ii', $id, $user_id);
+    $stmt = $conn->prepare("SELECT sala FROM bookings WHERE id = ?");
+    $stmt->bind_param('i', $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $sala = $row['sala'];
+        $stmt->close();
 
         $stmt = $conn->prepare("SELECT drink_id, quantity FROM booking_drinks WHERE booking_id = ?");
         $stmt->bind_param('i', $id);
@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $stmt->close();
     } else {
-        $_SESSION['error_message'] = 'Nie można anulować tej rezerwacji.';
+        $_SESSION['error_message'] = 'Rezerwacja nie znaleziona.';
     }
 }
 
-header('Location: panel_klienta.php');
+header('Location: panel_pracownika.php');
 exit;
 ?>

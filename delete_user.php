@@ -1,33 +1,24 @@
 <?php
-include 'includes/config.php';
-include 'includes/auth.php';
+session_start();
+require_once 'includes/config.php';
+require_once 'includes/auth.php';
 
-if (!is_logged_in() || $_SESSION['role'] != 'admin') {
+if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = (int)($_POST['id'] ?? 0);
 
-    $sql_check = "SELECT role FROM users WHERE id = '$id'";
-    $result = $conn->query($sql_check);
-
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        if ($user['role'] != 'admin') {
-            $sql_delete = "DELETE FROM users WHERE id = '$id'";
-            if ($conn->query($sql_delete) === TRUE) {
-                echo "Użytkownik został usunięty.";
-            } else {
-                echo "Błąd: " . $sql_delete . "<br>" . $conn->error;
-            }
-        } else {
-            echo "Nie możesz usunąć konta administratora.";
-        }
+    $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    if ($stmt->execute()) {
+        $_SESSION['success_message'] = 'Użytkownik został usunięty.';
     } else {
-        echo "Użytkownik nie istnieje.";
+        $_SESSION['error_message'] = 'Błąd podczas usuwania użytkownika.';
     }
+    $stmt->close();
 }
 
 header('Location: panel_admin.php');

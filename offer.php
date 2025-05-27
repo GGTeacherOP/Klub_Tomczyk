@@ -1,19 +1,27 @@
 <?php include 'includes/header.php'; ?>
-    <h2>Oferta</h2>
+    <h2>Nasza Oferta</h2>
     <div class="room">
-        <h3>Sala X</h3>
-        <img src="assets/images/sala_x.jpg" alt="Sala X">
-        <p>Pojemność do 50 osób</p>
+        <div class="room-image">
+            <img src="assets/images/sala_x.jpg" alt="Sala X">
+            <div class="overlay">
+                <h3>Sala X</h3>
+                <p>Pojemność: 50 osób</p>
+                <p>Profesjonalny system dźwiękowy</p>
+                <p>Cena: 2000 zł/8h</p>
+                <a href="booking.php?sala=Sala X" class="btn">Zarezerwuj</a>
+            </div>
+        </div>
     </div>
     <div class="room">
-        <h3>Sala Y</h3>
-        <img src="assets/images/sala_y.jpg" alt="Sala Y">
-        <p>Pojemność do 100 osób</p>
+        <div class="room-image">
+            <img src="assets/images/sala_y.jpg" alt="Sala Y">
+            <div class="overlay">
+                <h3>Sala Y</h3>
+                <p>Pojemność: 30 osób</p>
+                <p>Oświetlenie imprezowe</p>
+                <p>Cena: 1500 zł/8h</p>
+                <a href="booking.php?sala=Sala Y" class="btn">Zarezerwuj</a>
+            </div>
+        </div>
     </div>
-    <h3>Dodatki</h3>
-    <ul>
-        <li>DJ</li>
-        <li>Fotobudka</li>
-        <li>Ochrona</li>
-    </ul>
 <?php include 'includes/footer.php'; ?>

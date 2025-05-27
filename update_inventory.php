@@ -1,17 +1,40 @@
 <?php
-include 'includes/config.php';
-include 'includes/auth.php';
-if (!is_logged_in() || $_SESSION['role'] != 'employee') {
+session_start();
+require_once 'includes/config.php';
+require_once 'includes/auth.php';
+
+if (!isLoggedIn() || $_SESSION['role'] !== 'employee') {
     header('Location: login.php');
     exit;
 }
-$id = $_POST['id'];
-$drinki = $_POST['drinki'];
-$sql = "UPDATE inventory SET drinki = '$drinki', ostatnia_aktualizacja = CURRENT_TIMESTAMP WHERE id = '$id'";
-if ($conn->query($sql) === TRUE) {
-    echo "Zapas został zaktualizowany. Przekierowanie za 3 sekundy...";
-    echo "<script>setTimeout(function(){ window.location.href = 'panel_pracownika.php'; }, 3000);</script>";
-} else {
-    echo "Błąd: " . $sql . "<br>" . $conn->error;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $sala = $_POST['sala'] ?? '';
+    $drinks = $_POST['drinks'] ?? [];
+
+    if (!in_array($sala, ['Sala X', 'Sala Y'])) {
+        $_SESSION['error_message'] = 'Nieprawidłowa sala.';
+        header('Location: panel_pracownika.php');
+        exit;
+    }
+
+    $stmt = $conn->prepare("UPDATE inventory SET quantity = ?, ostatnia_aktualizacja = CURRENT_TIMESTAMP WHERE sala = ? AND drink_id = ?");
+    foreach ($drinks as $drink_id => $quantity) {
+        $quantity = (int)$quantity;
+        $drink_id = (int)$drink_id;
+        if ($quantity < 0) {
+            $_SESSION['error_message'] = 'Ilość drinków nie może być negatywna.';
+            header('Location: panel_pracownika.php');
+            exit;
+        }
+        $stmt->bind_param('isi', $quantity, $sala, $drink_id);
+        $stmt->execute();
+    }
+    $stmt->close();
+
+    $_SESSION['success_message'] = 'Zapasy zostały zaktualizowane.';
 }
+
+header('Location: panel_pracownika.php');
+exit;
 ?>
